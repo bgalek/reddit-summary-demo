@@ -26,3 +26,4 @@ jobs:
         working-directory: _posts
       - name: POST summary to webhook
         run: curl -X POST -F "file=@summary.txt" https://webhook.site/f8ca20d3-379e-418f-9aac-940cc00a9e2c
+        working-directory: _posts

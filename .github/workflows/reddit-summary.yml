@@ -8,6 +8,8 @@ permissions:
 jobs:
   fetch-and-summarize:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Install gh models extension
         run: gh extension install https://github.com/github/gh-models

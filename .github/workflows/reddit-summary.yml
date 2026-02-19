@@ -16,6 +16,6 @@ jobs:
       - name: Fetch Reddit RSS
         run: curl -s https://www.reddit.com/r/java/.rss -o rss.xml
       - name: Run summarization via gh models
-        run: gh models run --system-prompt "Summarize this RSS feed in a developer-friendly summary" --file rss.xml > summary.txt
+        run: cat rss.xml | gh models run --system-prompt "Summarize this RSS feed in a developer-friendly summary" > summary.txt
       - name: POST summary to webhook
         run: curl -X POST -F "file=@summary.txt" https://webhook.site/f8ca20d3-379e-418f-9aac-940cc00a9e2c

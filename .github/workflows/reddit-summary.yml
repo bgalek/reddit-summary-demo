@@ -22,7 +22,7 @@ jobs:
           template_file: 'template.md'
           output_dir: '_posts/'
       - name: Run summarization via gh models
-        run: ls -1 | head -n 2 | xargs cat | gh models run openai/gpt-4o-mini --system-prompt "Summarize this RSS feed in a developer-friendly summary"
+        run: ls -1 | head -n 2 | xargs cat | gh models run openai/gpt-4o-mini --system-prompt "Summarize this RSS feed in a developer-friendly summary" > summary.txt
         working-directory: _posts
       - name: POST summary to webhook
         run: curl -X POST -F "file=@summary.txt" https://webhook.site/f8ca20d3-379e-418f-9aac-940cc00a9e2c

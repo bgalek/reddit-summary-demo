@@ -1,0 +1,19 @@
+name: Summarize Reddit subreddit 
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+permissions:
+  models: read
+jobs:
+  fetch-and-summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install gh models extension
+        run: gh extension install https://github.com/github/gh-models
+      - name: Fetch Reddit RSS
+        run: curl -s https://www.reddit.com/r/java/.rss -o rss.xml
+      - name: Run summarization via gh models
+        run: gh models run openai/gpt-4o-mini --file rss.xml --prompt "Summarize this RSS feed from r/java in a developer-friendly summary:" > summary.txt
+      - name: POST summary to webhook
+        run: curl -X POST -F "file=@summary.txt" https://webhook.site/f8ca20d3-379e-418f-9aac-940cc00a9e2c

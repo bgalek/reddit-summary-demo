@@ -15,9 +15,7 @@ jobs:
         run: gh extension install https://github.com/github/gh-models
       - name: Fetch Reddit RSS
         run: curl -s https://www.reddit.com/r/java/.rss -o rss.xml
-      - name: Add prompt
-        run: sed -i '1s/^/Summarize this RSS feed in a developer-friendly summary:\n/' rss.xml
       - name: Run summarization via gh models
-        run: gh models run openai/gpt-4o-mini --file rss.xml > summary.txt
+        run: gh models run --system-prompt "Summarize this RSS feed in a developer-friendly summary" --file rss.xml > summary.txt
       - name: POST summary to webhook
         run: curl -X POST -F "file=@summary.txt" https://webhook.site/f8ca20d3-379e-418f-9aac-940cc00a9e2c

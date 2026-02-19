@@ -16,7 +16,7 @@ jobs:
       - name: Fetch Reddit RSS
         run: curl -s https://www.reddit.com/r/java/.rss -o rss.xml
       - name: Add prompt
-        run: sed -i '1s/^/Summarize this RSS feed from r/java in a developer-friendly summary:\n/' rss.xml
+        run: sed -i '1s/^/Summarize this RSS feed in a developer-friendly summary:\n/' rss.xml
       - name: Run summarization via gh models
         run: gh models run openai/gpt-4o-mini --file rss.xml > summary.txt
       - name: POST summary to webhook
